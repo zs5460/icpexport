@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8"/>
+<title>简单模板(NEC)</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://img.redimg.cn/css/simple/simple.css" />
+<style type="text/css">
+.pagebox{width:960px;margin:0 auto;text-align:left;}
+#catelist{width:260px;background-color:#369;color:#fff;min-height:1080px;}
+#catelist li{line-height:2em;font-size:2em;text-align:right;padding-right:1em;}
+#catelist li:hover,#catelist li:active{background-color:#fff;color:#369;}
+#contentbox{width:640px;height:100%;font-size:16px;line-height:1.8em;}
+#contentbox h2{font-size:2em;line-height:2em;}
+#contentbox img{max-width:100%;}
+#contentbox li{list-style:circle;}
+.imgcaption{font-family:fangsong;padding-bottom:1em;}
+
+</style>
+</head>
+<body>
+<div class="g-doc f-ff1">
+
+<div class="pagebox">
+<div id="catelist" class="f-fl"></div>
+<div id="contentbox" class="f-fr"></div>
+</div>
+    
+</div>
+<script src="http://img.redimg.cn/js/jquery/latest.js"></script>
+<script src="demo.js"></script>
+<script>
+
+function catelist(){
+	var sb = [];
+	sb.push('<li><a href="javascript:hidepage()">专题首页</a></li>');
+	for(item of data.cates){
+			sb.push('<li><a href="javascript:list('+item.cateid+')">'+item.catename+'</a></li>');
+	}
+	$('#catelist').html(sb.join(''));
+}
+
+
+function list(cateid){
+	var sb = [];
+	for(item of data.items){
+		if (item.cateid==cateid)
+		{
+			sb.push('<li><a href="javascript:detail('+item.id+')">'+item.title+'</a></li>');
+		}
+	}
+	$('#contentbox').html(sb.join(''));
+}
+
+function detail(id){
+	for(item of data.items){
+		if (item.id==id)
+		{
+			$('#contentbox').html('<h2>'+item.title+"</h2>"+item.content);
+		}
+	}
+}
+
+function hidepage(){
+	$('#pagebox').hide();
+}
+
+function init(){
+	catelist();
+
+	list(data.cates[0].id);
+}
+init();
+//list(53339);
+//detail(4744430);
+</script>
+</body>
+</html>
